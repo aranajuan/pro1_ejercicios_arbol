@@ -70,6 +70,23 @@ int arbol_balanceado(const tarbol *a){
     return ver_balanceado(a,h);
 }
 
+int ver_avl(const tarbol *a, int h){
+
+	if(*a){
+		return ver_avl((*a)->izq, h-1) &&
+				ver_avl((*a)->der, h-1);
+	}
+	return h == 1;
+}
+
 int arbol_avl(const tarbol *a){
-    return 0;
+    if(*a){
+        int fe = arbol_altura(&(*a)->der) - arbol_altura(&(*a)->izq);
+        if(fe<=1 && fe >=-1){
+            return arbol_avl(&(*a)->der) && arbol_avl(&(*a)->izq);
+        }
+        printf("no es avl en %d fe: %d",(*a)->dato.edad,fe);
+        return 0;
+    }
+    return 1;
 }
